@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router'
 import {
   useQuery,
   useMutation,
@@ -7,6 +8,8 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { useCountries } from './hooks/useCountries'
+import LoginView from './components/LoginView'
+import LoadingSpinner from './components/LoadingSpinner'
 
 const queryClient = new QueryClient()
 
@@ -14,7 +17,12 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <View />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<View />} />
+          <Route path="/login" element={<LoginView />} />
+        </Routes>
+      </BrowserRouter>
     </QueryClientProvider>
   )
 }
@@ -39,7 +47,6 @@ const View = () => {
       if (population1 > population2) {
         setPoints(points + 1)
       } else {
-        setPoints(0)
         setPlaying(false)
       }
     }
@@ -48,7 +55,6 @@ const View = () => {
       if (population1 < population2) {
         setPoints(points + 1)
       } else {
-        setPoints(0)
         setPlaying(false)
       }
     }
@@ -69,7 +75,7 @@ const View = () => {
       </div>
 
       {isError && <div className="flex flex-col justify-center items-center m-4">Error fetching data</div>}
-      {isPending && <div className="flex flex-col justify-center items-center m-4">Loading...</div>}
+      {isPending && <LoadingSpinner />}
       {data && playing
         ? 
         <div>
@@ -91,11 +97,17 @@ const View = () => {
             <p className='m-4'>Population: {data.relevantData[1]?.population}</p>
           </div>
         </div>
-        :
+        : null
+      }
+      
+      {!playing
+        ?
         <div className="flex flex-col justify-center items-center m-4">
           <h2 className="text-2xl">Game Over</h2>
-          <button onClick={() => startGame()} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Play Again</button>
+          <p className="text-xl">You scored {points} points</p>
+          <button onClick={startGame} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2">Play Again</button>
         </div>
+        : null
       }
     </div>
   )
