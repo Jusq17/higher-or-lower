@@ -48,9 +48,9 @@ const fetchCountries = async () => {
   return { relevantData }
 }
 
-export const useCountries = (points) => {
+export const useCountries = () => {
   return useQuery({
-    queryKey: ['countryPair', points],
+    queryKey: ['countryPair'],
     queryFn: fetchCountries,
     refetchOnWindowFocus: false,
   })
