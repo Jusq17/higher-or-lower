@@ -21,6 +21,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+      <NavBar />
         <Routes>
           <Route path="/" element={<StartingView />} />
           <Route path="/game" element={<View />} />
@@ -82,7 +83,6 @@ const View = () => {
 
   return (
     <div>
-      <NavBar />
       <div className="flex flex-col justify-center items-center m-4">
         <p className="text-xl italic m-4">Category: population</p>
         <p className="text-2xl mt-4">Points: {points}</p>

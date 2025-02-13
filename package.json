@@ -23,6 +23,7 @@
     "hbs": "^4.2.0",
     "mongodb": "^6.13.0",
     "mongoose": "^8.10.0",
+    "nodemon": "^3.1.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router": "^7.1.5",
