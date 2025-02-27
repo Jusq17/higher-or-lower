@@ -11,6 +11,7 @@ import { useCountries } from './hooks/useCountries'
 import StartingView from './components/StartingView'
 import LoginView from './components/LoginView'
 import RegisterView from './components/RegisterView'
+import ProfileView from './components/ProfileView'
 import NavBar from './components/NavBar'
 import LoadingSpinner from './components/LoadingSpinner'
 
@@ -27,6 +28,7 @@ function App() {
           <Route path="/game" element={<View />} />
           <Route path="/login" element={<LoginView />} />
           <Route path="/register" element={<RegisterView />} />
+          <Route path="/profile" element={<ProfileView />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>
@@ -38,7 +40,7 @@ const View = () => {
   const [points, setPoints] = useState(0)
   const [playing, setPlaying] = useState(true)
 
-  const { data, isError, isPending, refetch } = useCountries()
+  const { data, isError, isPending, isFetching, refetch } = useCountries()
 
   const checkAnswer = (answer) => {
     // check if the answer is correct
@@ -54,6 +56,7 @@ const View = () => {
         setPoints(points + 1)
         refetch()
       } else {
+        updateScore()
         setPlaying(false)
         refetch()
       }
@@ -64,6 +67,7 @@ const View = () => {
         setPoints(points + 1)
         refetch()
       } else {
+        updateScore()
         setPlaying(false)
         refetch()
       }
@@ -79,6 +83,25 @@ const View = () => {
     setPlaying(true)
   }
 
+  const token = localStorage.getItem('token')
+
+  const updateScore = async () => {
+    const response = await fetch('http://localhost:3000/score', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        score: points
+      })
+    })
+
+    const data = await response.json()
+
+    console.log(response)
+  }
+
   console.log(data)
 
   return (
@@ -89,13 +112,17 @@ const View = () => {
       </div>
 
       {isError && <div className="flex flex-col justify-center items-center m-4">Error fetching data</div>}
-      {isPending && <LoadingSpinner />}
-      {data && playing
+      {isFetching && playing && <LoadingSpinner />}
+      {data && playing && !isFetching && !isError
         ? 
         <div>
           <div className="flex flex-col justify-center items-center m-4">
             <h2 className="text-2xl mb-4">{data.relevantData[0].name}</h2>
-            <img className="border-2 border-solid max-w-md" src={data.relevantData[0]?.flags?.png} alt={`${data.relevantData[0]?.name} flag`} />
+            {data.relevantData[0]?.flags?.png ? (
+              <img className="border-2 border-solid max-w-md" src={data.relevantData[0]?.flags?.png} alt={`${data.relevantData[0]?.name} flag`} />
+            ) : (
+              <LoadingSpinner />
+            )}
             <div className='mt-4'>
               <button onClick={() => checkAnswer("higher")} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-1">Higher</button>
               <button onClick={() => checkAnswer("lower")} className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded mx-1">Lower</button>
@@ -106,7 +133,11 @@ const View = () => {
 
           <div className="flex flex-col justify-center items-center m-4">
             <h2 className="text-2xl mb-4">{data.relevantData[1].name}</h2>
-            <img className="border-2 border-solid max-w-md" src={data.relevantData[1]?.flags?.png} alt={`${data.relevantData[1]?.name} flag`} />
+            {data.relevantData[1]?.flags?.png ? (
+              <img className="border-2 border-solid max-w-md" src={data.relevantData[1]?.flags?.png} alt={`${data.relevantData[1]?.name} flag`} />
+            ) : (
+              <LoadingSpinner />
+            )}
           </div>
         </div>
         : null

@@ -2,8 +2,7 @@
 const StartingView = () => {
     return (
         <div className="flex flex-col justify-center items-center m-8">
-            <h1 className="text-3xl">Higher or Lower</h1>
-            <p className="italic">Countries edition</p>
+            <h2 className="text-2xl italic">Countries edition</h2>
             <div className="flex flex-col justify-center items-center m-4">
                 <p className="text-2xl">How to play:</p>
                 <p>Two countries will be shown on the screen.</p>
