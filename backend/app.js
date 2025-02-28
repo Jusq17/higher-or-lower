@@ -6,6 +6,9 @@ import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 import UserModel from './models/UserModel.js';
+import getTokenFrom from './utils/tokenFrom.js';
+
+import loginRouter from './controllers/login.js';
 
 dotenv.config();
 
@@ -18,13 +21,7 @@ console.log(connection_url);
 
 mongoose.connect(connection_url);
 
-const getTokenFrom = req => {
-  const authorization = req.get('authorization')
-  if (authorization && authorization.startsWith('Bearer ')) {
-    return authorization.replace('Bearer ', '')
-  }
-  return null
-}
+app.use('/api/login', loginRouter);
 
 app.get('/profile', (req, res) => {
 
@@ -69,46 +66,6 @@ app.post('/register', (req, res) => {
   });
 });
 
-app.post('/login', (req, res) => {
-  console.log(req.body);
-
-  const username = req.body.username;
-  const password = req.body.password;
-
-  UserModel.findOne({ username }).then(user => {
-    if (user) {
-      const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-
-      if (isPasswordCorrect) {
-
-        const token = jwt.sign({
-          username: user.username,
-        }, 
-        process.env.JWT_SECRET,
-        {
-          expiresIn: '1h',
-        });
-
-        res.status(200).json({
-          token,
-          username: user.username,
-        });
-      }
-      else {
-        // Unauthorized 401
-        res.status(401).json({
-          message: 'Login failed',
-        });
-      }
-    } else {
-      // User not found 404
-      res.status(404).json({
-        message: 'User not found',
-      });
-    }
-  });
-});
-
 app.post('/score', (req, res) => {
 
   console.log(req.body);
@@ -132,7 +89,7 @@ app.post('/score', (req, res) => {
 
         // update the score
         UserModel.updateOne({ username }, { score: newScore }).then(() => {
-          res.send('Score updated');
+          res.json('Score updated');
         }).catch(err => {
           console.log(err);
         });
@@ -141,6 +98,8 @@ app.post('/score', (req, res) => {
   }).catch(err => {
     console.log(err);
   });
+
+  res.json('Score not updated');
 });
 
 app.listen(3000, () => {
