@@ -5,10 +5,14 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { Link } from '@mui/material';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const NavBar = () => {
 
-  const [user, setUser] = useState(localStorage.getItem('username'))
+  const navigate = useNavigate()
+  const { user, setUser } = useContext(UserContext);
   
   console.log(user)
 
@@ -22,6 +26,8 @@ const NavBar = () => {
   const handleLogout = () => {
     localStorage.removeItem('username')
     localStorage.removeItem('token')
+    setUser(null)
+    navigate('/')
   }
 
   return (

@@ -1,5 +1,16 @@
+import React, { useState, useEffect } from 'react';
 
 const StartingView = () => {
+
+    const [user, setUser] = useState(localStorage.getItem('username'))
+
+    useEffect(() => {
+        const loggedInUser = localStorage.getItem('username')
+        if (loggedInUser) {
+            setUser(loggedInUser)
+        }
+    }, [])
+
     return (
         <div className="flex flex-col justify-center items-center m-8">
             <h2 className="text-2xl italic">Countries edition</h2>
@@ -8,6 +19,8 @@ const StartingView = () => {
                 <p>Two countries will be shown on the screen.</p>
                 <p>Guess which country has a higher population.</p>
             </div>
+            {user === undefined || user === null
+            ?
             <div className="flex flex-col justify-center items-center m-4">
                 <a href="/game" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                     Play as guest
@@ -16,6 +29,13 @@ const StartingView = () => {
                     Log in
                 </a>
             </div>
+            :
+            <div className="flex flex-col justify-center items-center m-4">
+                <a href="/game" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Play
+                </a>
+            </div>
+            }
         </div>
     );
 }

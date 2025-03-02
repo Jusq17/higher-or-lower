@@ -1,7 +1,11 @@
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 
+import { useNavigate } from 'react-router-dom';
+
 const RegisterView = () => {
+
+    const navigate = useNavigate()
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -10,13 +14,17 @@ const RegisterView = () => {
     const score = 0
 
     const handleRegister = () => {
+        
+        console.log('registering')
+
         if (password === confirmPassword && password.length > 0 && username.length > 0) {
-            axios.post('http://localhost:3000/register', {
+            axios.post('http://localhost:3000/api/register', {
                 username,
                 password,
                 score
             }).then(res => {
                 console.log(res)
+                navigate('/login')
             }).catch(err => {
                 console.log(err)
             })
