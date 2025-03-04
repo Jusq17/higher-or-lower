@@ -62,7 +62,7 @@ const LoginView = () => {
             {user === undefined || user === null
                 ?
                 <div className="flex flex-col justify-center items-center m-4">
-                    <h1 className="text-3xl mb-4">Login</h1>
+                    <h1 className="text-3xl mb-8">Login</h1>
                     <form 
                         onSubmit={(e) => {
                             e.preventDefault(); // Prevents page reload
@@ -86,7 +86,7 @@ const LoginView = () => {
                         />
                         <button 
                             type="submit"
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
                         >
                             Login
                         </button>

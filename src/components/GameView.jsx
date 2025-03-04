@@ -85,7 +85,8 @@ const GameView = () => {
 
   return (
     <div>
-      <div className="flex flex-col justify-center items-center m-4">
+      <div className="flex flex-col justify-center items-center m-2">
+        <h1 className="text-4xl mb-8">Higher or Lower</h1>
         <p className="text-xl italic m-4">Category: population</p>
         <p className="text-2xl mt-4">Points: {points}</p>
       </div>

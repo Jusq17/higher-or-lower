@@ -33,7 +33,7 @@ const RegisterView = () => {
 
     return (
         <div className="flex flex-col justify-center items-center m-4">
-            <h1 className="text-3xl">Register</h1>
+            <h1 className="text-3xl mb-8">Register</h1>
             <input
                 type="text"
                 placeholder="Username"
@@ -57,7 +57,7 @@ const RegisterView = () => {
             />
             <button
                 onClick={handleRegister} 
-                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-4"
             >
                 Register
             </button>
