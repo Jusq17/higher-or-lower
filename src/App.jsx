@@ -13,6 +13,7 @@ import LoginView from './components/LoginView'
 import RegisterView from './components/RegisterView'
 import ProfileView from './components/ProfileView'
 import GameView from './components/GameView'
+import LeaderboardView from './components/LeaderboardView'
 import NavBar from './components/NavBar'
 import LoadingSpinner from './components/LoadingSpinner'
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/login" element={<LoginView />} />
           <Route path="/register" element={<RegisterView />} />
           <Route path="/profile" element={<ProfileView />} />
+          <Route path="/leaderboard" element={<LeaderboardView />} />
         </Routes>
       </BrowserRouter>
     </QueryClientProvider>

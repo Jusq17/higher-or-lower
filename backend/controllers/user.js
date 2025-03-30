@@ -6,6 +6,22 @@ import getTokenFrom from '../utils/tokenFrom.js';
 import express from 'express';
 const userRouter = express.Router();
 
+userRouter.get('/', (req, res) => {
+    
+    // get all users from the database
+    UserModel.find().then(users => {
+        const usersInfo = users.map(user => {
+            return {
+                username: user.username,
+                score: user.score,
+            }
+        });
+        res.json(usersInfo);
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
 userRouter.get('/profile', (req, res) => {
 
     const token = getTokenFrom(req)
