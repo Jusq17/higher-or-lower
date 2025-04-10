@@ -70,6 +70,9 @@ const NavBar = () => {
               <MenuItem component={Link} href="/game" onClick={handleClose}>
                 Play
               </MenuItem>
+              <MenuItem component={Link} href="/leaderboard" onClick={handleClose}>
+                Leaderboard
+              </MenuItem>
               {user === undefined || user === null ? (
                 <>
                   <MenuItem component={Link} href="/login" onClick={handleClose}>
@@ -81,9 +84,6 @@ const NavBar = () => {
                 </>
               ) : (
                 <>
-                  <MenuItem component={Link} href="/game" onClick={handleClose}>
-                    Play
-                  </MenuItem>
                   <MenuItem onClick={handleLogout}>Logout</MenuItem>
                   <MenuItem component={Link} href="/profile" onClick={handleClose}>
                     Profile
@@ -97,6 +97,13 @@ const NavBar = () => {
             <Button component={Link} href="/" color="inherit">
               Home
             </Button>
+            <Button component={Link} href="/game" color="inherit">
+                  Play
+            </Button>
+            <Button component={Link} href="/leaderboard" color="inherit">
+              Leaderboard
+            </Button>
+
             {user === undefined || user === null ? (
               <>
                 <Button component={Link} href="/login" color="inherit">
@@ -108,9 +115,6 @@ const NavBar = () => {
               </>
             ) : (
               <>
-                <Button component={Link} href="/game" color="inherit">
-                  Play
-                </Button>
                 <Button component={Link} href="/" onClick={handleLogout} color="inherit">
                   Logout
                 </Button>
