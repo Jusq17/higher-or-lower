@@ -21,7 +21,7 @@ const RegisterView = () => {
         console.log('registering')
 
         if (password === confirmPassword && password.length > 0 && username.length > 0) {
-            axios.post('http://localhost:3000/api/register', {
+            axios.post('/api/register', {
                 username,
                 password,
                 score

@@ -67,7 +67,7 @@ const GameView = () => {
       return
     }
 
-    const response = await fetch('http://localhost:3000/api/user/score', {
+    const response = await fetch('/api/user/score', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

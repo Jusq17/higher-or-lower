@@ -10,7 +10,7 @@ const ProfileView = () => {
         const getUser = async () => {
             const token = localStorage.getItem('token')
     
-            const response = await fetch('http://localhost:3000/api/user/profile', {
+            const response = await fetch('/api/user/profile', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
