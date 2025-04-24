@@ -1,6 +1,8 @@
 Higher or Lower game with countries populations.
 Made for practice and for reference.
 
+Link: https://higher-or-lower-tc72.onrender.com
+
 Provides functionality for: 
 - the actual game
 - registering a new user
