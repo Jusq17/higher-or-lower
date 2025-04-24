@@ -10,7 +10,7 @@ const LeaderboardView = () => {
 
         const fetchLeaderboard = async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/user')
+                const response = await fetch('/api/user')
                 const data = await response.json()
 
                 // Sort the leaderboard by score in descending order

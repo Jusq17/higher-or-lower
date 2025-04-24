@@ -4,7 +4,6 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import path from 'path';
 
-
 import loginRouter from './controllers/login.js';
 import userRouter from './controllers/user.js';
 import registerRouter from './controllers/register.js';
